@@ -45,23 +45,10 @@ export class AccessToken {
    * @param apiSecret Secret, can be set in env LIVEKIT_API_SECRET
    */
   constructor(apiKey?: string, apiSecret?: string, options?: AccessTokenOptions) {
-    if (!apiKey) {
-      apiKey = process.env.LIVEKIT_API_KEY;
-    }
-    if (!apiSecret) {
-      apiSecret = process.env.LIVEKIT_API_SECRET;
-    }
+
     if (!apiKey || !apiSecret) {
       throw Error('api-key and api-secret must be set');
-    } else if (typeof document !== 'undefined') {
-      // check against document rather than window because deno provides window
-      console.error(
-        'You should not include your API secret in your web client bundle.\n\n' +
-          'Your web client should request a token from your backend server which should then use ' +
-          'the API secret to generate a token. See https://docs.livekit.io/client/connect/',
-      );
-    }
-
+    } 
     this.apiKey = apiKey;
     this.apiSecret = apiSecret;
     this.grants = {};
